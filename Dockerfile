@@ -14,9 +14,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN \
  apk add --no-cache \
-        nginx \
-        curl \
-        evtest \
+        nginx=1.16.1-r6 \
         php7 \
         php7-curl \
         php7-openssl \
@@ -24,8 +22,7 @@ RUN \
         php7-pdo_sqlite \
         php7-sqlite3 \
         php7-sockets \
-        screen \
-        sudo
+        
 RUN \
  mkdir -p /app/bbuddy && \
  if [ -z ${BBUDDY_RELEASE+x} ]; then \
