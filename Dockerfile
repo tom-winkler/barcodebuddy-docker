@@ -13,7 +13,6 @@ LABEL maintainer="Marc Ole Bulling"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN \
- echo "**** Installing runtime packages ****" && \
  apk add --no-cache \
         curl \
         evtest \
@@ -27,7 +26,6 @@ RUN \
         screen \
         sudo
 RUN \
- echo "**** Installing BarcodeBuddy ****" && \
  mkdir -p /app/bbuddy && \
  if [ -z ${BBUDDY_RELEASE+x} ]; then \
 	BBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
@@ -50,7 +48,6 @@ sed -i 's/IS_DOCKER=.*/IS_DOCKER=true/g' /app/bbuddy/example/grabInput.sh
 #Max children need to be a higher value, otherwise websockets / SSE might not work properly
 
 RUN \
- echo "**** Cleanup ****" && \
  rm -rf \
 	/root/.cache \
 	/tmp/*
