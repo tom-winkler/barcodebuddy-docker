@@ -10,7 +10,6 @@ ARG VERSION
 ARG BBUDDY_RELEASE
 LABEL build_version="BarcodeBuddy ${VERSION} Build ${BUILD_DATE}"
 
-RUN apk add --no-cache example_alpine_package
 RUN \
  echo "**** Installing runtime packages ****" && \
  apk add --no-cache \
