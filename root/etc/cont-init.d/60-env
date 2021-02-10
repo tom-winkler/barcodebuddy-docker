@@ -1,0 +1,51 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.info "Setting environment..."
+
+bashio::log.info "Copy config..."
+cp /app/bbuddy/config-dist.php /config/data/config.php
+
+bashio::log.info "Check require_api_key preference..."
+if bashio::config.false 'require_api_key'; then
+    bashio::log.info "Setting to false."
+    sed -i '44s/\(true\|false\)/false/gi' /config/data/config.php
+else 
+    bashio::log.info "Setting to true."
+    sed -i '44s/\(true\|false\)/true/gi' /config/data/config.php
+fi
+
+bashio::log.info "Check disable_auth preference..."
+if bashio::config.false 'disable_auth'; then
+    bashio::log.info "Setting to false."    
+    sed -i '47s/\(true\|false\)/false/gi' /config/data/config.php
+else 
+    bashio::log.info "Setting to true."
+    sed -i '47s/\(true\|false\)/true/gi' /config/data/config.php
+fi
+
+bashio::log.info "Check debug preference..."
+if bashio::config.false 'debug'; then
+    bashio::log.info "Setting to false."
+    sed -i '50s/\(true\|false\)/false/gi' /config/data/config.php
+else 
+    bashio::log.info "Setting to true."
+    sed -i '50s/\(true\|false\)/true/gi' /config/data/config.php
+fi
+
+bashio::log.info "Check cURL insecure SSL CA preference..."
+if bashio::config.false 'curl_allow_insecure_ssl_ca'; then
+    bashio::log.info "Setting to false."
+    sed -i '35s/\(true\|false\)/false/gi' /config/data/config.php
+else 
+    bashio::log.info "Setting to true."
+    sed -i '35s/\(true\|false\)/true/gi' /config/data/config.php
+fi
+
+bashio::log.info "Check cURL insecure SSL host preference..."
+if bashio::config.false 'curl_allow_insecure_ssl_host'; then
+    bashio::log.info "Setting to false."
+    sed -i '41s/\(true\|false\)/false/gi' /config/data/config.php
+else 
+    bashio::log.info "Setting to true."
+    sed -i '41s/\(true\|false\)/true/gi' /config/data/config.php
+fi

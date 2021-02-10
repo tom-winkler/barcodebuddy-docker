@@ -1,16 +1,16 @@
-FROM lsiobase/nginx:3.11
+ARG BUILD_FROM=lsiobase/nginx:3.11
+FROM ${BUILD_FROM}
 
-#Build example: docker build --no-cache --pull --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VERSION="v1.4.0.0" -t forceu/barcodebuddy-docker .
+# Add env
+ENV LANG C.UTF-8
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG BBUDDY_RELEASE
 LABEL build_version="BarcodeBuddy ${VERSION} Build ${BUILD_DATE}"
-LABEL maintainer="Marc Ole Bulling"
 
-
-
+RUN apk add --no-cache example_alpine_package
 RUN \
  echo "**** Installing runtime packages ****" && \
  apk add --no-cache \
@@ -63,3 +63,17 @@ COPY root/ /
 # ports and volumes
 EXPOSE 80 443
 VOLUME /config
+# Build arguments
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
+
+# Labels
+LABEL \
+    io.hass.name="Barcode Buddy for Grocy" \
+    io.hass.description="Barcode system for Grocy" \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.type="addon" \
+    io.hass.version=${BUILD_VERSION} 
+
